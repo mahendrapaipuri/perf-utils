@@ -61,18 +61,18 @@ type HardwareProfiler interface {
 // HardwareProfile is returned by a HardwareProfiler. Depending on kernel
 // configuration some fields may return nil.
 type HardwareProfile struct {
-	CPUCycles             *uint64 `json:"cpu_cycles,omitempty"`
-	Instructions          *uint64 `json:"instructions,omitempty"`
-	CacheRefs             *uint64 `json:"cache_refs,omitempty"`
-	CacheMisses           *uint64 `json:"cache_misses,omitempty"`
-	BranchInstr           *uint64 `json:"branch_instr,omitempty"`
-	BranchMisses          *uint64 `json:"branch_misses,omitempty"`
-	BusCycles             *uint64 `json:"bus_cycles,omitempty"`
-	StalledCyclesFrontend *uint64 `json:"stalled_cycles_frontend,omitempty"`
-	StalledCyclesBackend  *uint64 `json:"stalled_cycles_backend,omitempty"`
-	RefCPUCycles          *uint64 `json:"ref_cpu_cycles,omitempty"`
-	TimeEnabled           *uint64 `json:"time_enabled,omitempty"`
-	TimeRunning           *uint64 `json:"time_running,omitempty"`
+	CPUCycles             *ProfileValue `json:"cpu_cycles,omitempty"`
+	Instructions          *ProfileValue `json:"instructions,omitempty"`
+	CacheRefs             *ProfileValue `json:"cache_refs,omitempty"`
+	CacheMisses           *ProfileValue `json:"cache_misses,omitempty"`
+	BranchInstr           *ProfileValue `json:"branch_instr,omitempty"`
+	BranchMisses          *ProfileValue `json:"branch_misses,omitempty"`
+	BusCycles             *ProfileValue `json:"bus_cycles,omitempty"`
+	StalledCyclesFrontend *ProfileValue `json:"stalled_cycles_frontend,omitempty"`
+	StalledCyclesBackend  *ProfileValue `json:"stalled_cycles_backend,omitempty"`
+	RefCPUCycles          *ProfileValue `json:"ref_cpu_cycles,omitempty"`
+	// TimeEnabled           *uint64 `json:"time_enabled,omitempty"`
+	// TimeRunning           *uint64 `json:"time_running,omitempty"`
 }
 
 // Reset sets all values to defaults and will nil any pointers.
@@ -87,8 +87,8 @@ func (p *HardwareProfile) Reset() {
 	p.StalledCyclesFrontend = nil
 	p.StalledCyclesBackend = nil
 	p.RefCPUCycles = nil
-	p.TimeEnabled = nil
-	p.TimeRunning = nil
+	// p.TimeEnabled = nil
+	// p.TimeRunning = nil
 }
 
 // SoftwareProfiler is a software profiler.
@@ -103,17 +103,17 @@ type SoftwareProfiler interface {
 
 // SoftwareProfile is returned by a SoftwareProfiler.
 type SoftwareProfile struct {
-	CPUClock        *uint64 `json:"cpu_clock,omitempty"`
-	TaskClock       *uint64 `json:"task_clock,omitempty"`
-	PageFaults      *uint64 `json:"page_faults,omitempty"`
-	ContextSwitches *uint64 `json:"context_switches,omitempty"`
-	CPUMigrations   *uint64 `json:"cpu_migrations,omitempty"`
-	MinorPageFaults *uint64 `json:"minor_page_faults,omitempty"`
-	MajorPageFaults *uint64 `json:"major_page_faults,omitempty"`
-	AlignmentFaults *uint64 `json:"alignment_faults,omitempty"`
-	EmulationFaults *uint64 `json:"emulation_faults,omitempty"`
-	TimeEnabled     *uint64 `json:"time_enabled,omitempty"`
-	TimeRunning     *uint64 `json:"time_running,omitempty"`
+	CPUClock        *ProfileValue `json:"cpu_clock,omitempty"`
+	TaskClock       *ProfileValue `json:"task_clock,omitempty"`
+	PageFaults      *ProfileValue `json:"page_faults,omitempty"`
+	ContextSwitches *ProfileValue `json:"context_switches,omitempty"`
+	CPUMigrations   *ProfileValue `json:"cpu_migrations,omitempty"`
+	MinorPageFaults *ProfileValue `json:"minor_page_faults,omitempty"`
+	MajorPageFaults *ProfileValue `json:"major_page_faults,omitempty"`
+	AlignmentFaults *ProfileValue `json:"alignment_faults,omitempty"`
+	EmulationFaults *ProfileValue `json:"emulation_faults,omitempty"`
+	// TimeEnabled     *uint64 `json:"time_enabled,omitempty"`
+	// TimeRunning     *uint64 `json:"time_running,omitempty"`
 }
 
 // Reset sets all values to defaults and will nil any pointers.
@@ -127,8 +127,8 @@ func (p *SoftwareProfile) Reset() {
 	p.MajorPageFaults = nil
 	p.AlignmentFaults = nil
 	p.EmulationFaults = nil
-	p.TimeEnabled = nil
-	p.TimeRunning = nil
+	// p.TimeEnabled = nil
+	// p.TimeRunning = nil
 }
 
 // CacheProfiler is a cache profiler.
@@ -143,28 +143,28 @@ type CacheProfiler interface {
 
 // CacheProfile is returned by a CacheProfiler.
 type CacheProfile struct {
-	L1DataReadHit      *uint64 `json:"l1_data_read_hit,omitempty"`
-	L1DataReadMiss     *uint64 `json:"l1_data_read_miss,omitempty"`
-	L1DataWriteHit     *uint64 `json:"l1_data_write_hit,omitempty"`
-	L1InstrReadMiss    *uint64 `json:"l1_instr_read_miss,omitempty"`
-	LastLevelReadHit   *uint64 `json:"last_level_read_hit,omitempty"`
-	LastLevelReadMiss  *uint64 `json:"last_level_read_miss,omitempty"`
-	LastLevelWriteHit  *uint64 `json:"last_level_write_hit,omitempty"`
-	LastLevelWriteMiss *uint64 `json:"last_level_write_miss,omitempty"`
-	DataTLBReadHit     *uint64 `json:"data_tlb_read_hit,omitempty"`
-	DataTLBReadMiss    *uint64 `json:"data_tlb_read_miss,omitempty"`
-	DataTLBWriteHit    *uint64 `json:"data_tlb_write_hit,omitempty"`
-	DataTLBWriteMiss   *uint64 `json:"data_tlb_write_miss,omitempty"`
-	InstrTLBReadHit    *uint64 `json:"instr_tlb_read_hit,omitempty"`
-	InstrTLBReadMiss   *uint64 `json:"instr_tlb_read_miss,omitempty"`
-	BPUReadHit         *uint64 `json:"bpu_read_hit,omitempty"`
-	BPUReadMiss        *uint64 `json:"bpu_read_miss,omitempty"`
-	NodeReadHit        *uint64 `json:"node_read_hit,omitempty"`
-	NodeReadMiss       *uint64 `json:"node_read_miss,omitempty"`
-	NodeWriteHit       *uint64 `json:"node_write_hit,omitempty"`
-	NodeWriteMiss      *uint64 `json:"node_write_miss,omitempty"`
-	TimeEnabled        *uint64 `json:"time_enabled,omitempty"`
-	TimeRunning        *uint64 `json:"time_running,omitempty"`
+	L1DataReadHit      *ProfileValue `json:"l1_data_read_hit,omitempty"`
+	L1DataReadMiss     *ProfileValue `json:"l1_data_read_miss,omitempty"`
+	L1DataWriteHit     *ProfileValue `json:"l1_data_write_hit,omitempty"`
+	L1InstrReadMiss    *ProfileValue `json:"l1_instr_read_miss,omitempty"`
+	LastLevelReadHit   *ProfileValue `json:"last_level_read_hit,omitempty"`
+	LastLevelReadMiss  *ProfileValue `json:"last_level_read_miss,omitempty"`
+	LastLevelWriteHit  *ProfileValue `json:"last_level_write_hit,omitempty"`
+	LastLevelWriteMiss *ProfileValue `json:"last_level_write_miss,omitempty"`
+	DataTLBReadHit     *ProfileValue `json:"data_tlb_read_hit,omitempty"`
+	DataTLBReadMiss    *ProfileValue `json:"data_tlb_read_miss,omitempty"`
+	DataTLBWriteHit    *ProfileValue `json:"data_tlb_write_hit,omitempty"`
+	DataTLBWriteMiss   *ProfileValue `json:"data_tlb_write_miss,omitempty"`
+	InstrTLBReadHit    *ProfileValue `json:"instr_tlb_read_hit,omitempty"`
+	InstrTLBReadMiss   *ProfileValue `json:"instr_tlb_read_miss,omitempty"`
+	BPUReadHit         *ProfileValue `json:"bpu_read_hit,omitempty"`
+	BPUReadMiss        *ProfileValue `json:"bpu_read_miss,omitempty"`
+	NodeReadHit        *ProfileValue `json:"node_read_hit,omitempty"`
+	NodeReadMiss       *ProfileValue `json:"node_read_miss,omitempty"`
+	NodeWriteHit       *ProfileValue `json:"node_write_hit,omitempty"`
+	NodeWriteMiss      *ProfileValue `json:"node_write_miss,omitempty"`
+	// TimeEnabled        *uint64 `json:"time_enabled,omitempty"`
+	// TimeRunning        *uint64 `json:"time_running,omitempty"`
 }
 
 // Reset sets all values to defaults and will nil any pointers.
@@ -189,8 +189,8 @@ func (p *CacheProfile) Reset() {
 	p.NodeReadMiss = nil
 	p.NodeWriteHit = nil
 	p.NodeWriteMiss = nil
-	p.TimeEnabled = nil
-	p.TimeRunning = nil
+	// p.TimeEnabled = nil
+	// p.TimeRunning = nil
 }
 
 // ProfileValue is a value returned by a profiler.

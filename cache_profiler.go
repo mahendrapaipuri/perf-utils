@@ -406,66 +406,66 @@ func (p *cacheProfiler) Profile(cacheProfile *CacheProfile) error {
 		err2 := profiler.Profile(profileVal)
 		err = multierr.Append(err, err2)
 		if err2 == nil {
-			if cacheProfile.TimeEnabled == nil {
-				cacheProfile.TimeEnabled = &profileVal.TimeEnabled
-			}
-			if cacheProfile.TimeRunning == nil {
-				cacheProfile.TimeRunning = &profileVal.TimeRunning
-			}
+			// if cacheProfile.TimeEnabled == nil {
+			// 	cacheProfile.TimeEnabled = &profileVal.TimeEnabled
+			// }
+			// if cacheProfile.TimeRunning == nil {
+			// 	cacheProfile.TimeRunning = &profileVal.TimeRunning
+			// }
 			switch {
 			// L1 data
 			case (profilerType ^ L1DataReadHit) == 0:
-				cacheProfile.L1DataReadHit = &profileVal.Value
+				cacheProfile.L1DataReadHit = profileVal
 			case (profilerType ^ L1DataReadMiss) == 0:
-				cacheProfile.L1DataReadMiss = &profileVal.Value
+				cacheProfile.L1DataReadMiss = profileVal
 			case (profilerType ^ L1DataWriteHit) == 0:
-				cacheProfile.L1DataWriteHit = &profileVal.Value
+				cacheProfile.L1DataWriteHit = profileVal
 
 			// L1 instruction
 			case (profilerType ^ L1InstrReadMiss) == 0:
-				cacheProfile.L1InstrReadMiss = &profileVal.Value
+				cacheProfile.L1InstrReadMiss = profileVal
 
 			// Last Level
 			case (profilerType ^ LLReadHit) == 0:
-				cacheProfile.LastLevelReadHit = &profileVal.Value
+				cacheProfile.LastLevelReadHit = profileVal
 			case (profilerType ^ LLReadMiss) == 0:
-				cacheProfile.LastLevelReadMiss = &profileVal.Value
+				cacheProfile.LastLevelReadMiss = profileVal
 			case (profilerType ^ LLWriteHit) == 0:
-				cacheProfile.LastLevelWriteHit = &profileVal.Value
+				cacheProfile.LastLevelWriteHit = profileVal
 			case (profilerType ^ LLWriteMiss) == 0:
-				cacheProfile.LastLevelWriteMiss = &profileVal.Value
+				cacheProfile.LastLevelWriteMiss = profileVal
 
 			// dTLB
 			case (profilerType ^ DataTLBReadHit) == 0:
-				cacheProfile.DataTLBReadHit = &profileVal.Value
+				cacheProfile.DataTLBReadHit = profileVal
 			case (profilerType ^ DataTLBReadMiss) == 0:
-				cacheProfile.DataTLBReadMiss = &profileVal.Value
+				cacheProfile.DataTLBReadMiss = profileVal
 			case (profilerType ^ DataTLBWriteHit) == 0:
-				cacheProfile.DataTLBWriteHit = &profileVal.Value
+				cacheProfile.DataTLBWriteHit = profileVal
 			case (profilerType ^ DataTLBWriteMiss) == 0:
-				cacheProfile.DataTLBWriteMiss = &profileVal.Value
+				cacheProfile.DataTLBWriteMiss = profileVal
 
 			// iTLB
 			case (profilerType ^ InstrTLBReadHit) == 0:
-				cacheProfile.InstrTLBReadHit = &profileVal.Value
+				cacheProfile.InstrTLBReadHit = profileVal
 			case (profilerType ^ InstrTLBReadMiss) == 0:
-				cacheProfile.InstrTLBReadMiss = &profileVal.Value
+				cacheProfile.InstrTLBReadMiss = profileVal
 
 			// BPU
 			case (profilerType ^ BPUReadHit) == 0:
-				cacheProfile.BPUReadHit = &profileVal.Value
+				cacheProfile.BPUReadHit = profileVal
 			case (profilerType ^ BPUReadMiss) == 0:
-				cacheProfile.BPUReadMiss = &profileVal.Value
+				cacheProfile.BPUReadMiss = profileVal
 
 			// node
 			case (profilerType ^ NodeCacheReadHit) == 0:
-				cacheProfile.NodeReadHit = &profileVal.Value
+				cacheProfile.NodeReadHit = profileVal
 			case (profilerType ^ NodeCacheReadMiss) == 0:
-				cacheProfile.NodeReadMiss = &profileVal.Value
+				cacheProfile.NodeReadMiss = profileVal
 			case (profilerType ^ NodeCacheWriteHit) == 0:
-				cacheProfile.NodeWriteHit = &profileVal.Value
+				cacheProfile.NodeWriteHit = profileVal
 			case (profilerType ^ NodeCacheWriteMiss) == 0:
-				cacheProfile.NodeWriteMiss = &profileVal.Value
+				cacheProfile.NodeWriteMiss = profileVal
 			}
 		}
 	}

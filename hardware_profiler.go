@@ -208,33 +208,33 @@ func (p *hardwareProfiler) Profile(hwProfile *HardwareProfile) error {
 		err2 := profiler.Profile(profileVal)
 		err = multierr.Append(err, err2)
 		if err2 == nil {
-			if hwProfile.TimeEnabled == nil {
-				hwProfile.TimeEnabled = &profileVal.TimeEnabled
-			}
-			if hwProfile.TimeRunning == nil {
-				hwProfile.TimeRunning = &profileVal.TimeRunning
-			}
+			// if hwProfile.TimeEnabled == nil {
+			// 	hwProfile.TimeEnabled = &profileVal.TimeEnabled
+			// }
+			// if hwProfile.TimeRunning == nil {
+			// 	hwProfile.TimeRunning = &profileVal.TimeRunning
+			// }
 			switch profilerType {
 			case unix.PERF_COUNT_HW_CPU_CYCLES:
-				hwProfile.CPUCycles = &profileVal.Value
+				hwProfile.CPUCycles = profileVal
 			case unix.PERF_COUNT_HW_INSTRUCTIONS:
-				hwProfile.Instructions = &profileVal.Value
+				hwProfile.Instructions = profileVal
 			case unix.PERF_COUNT_HW_CACHE_REFERENCES:
-				hwProfile.CacheRefs = &profileVal.Value
+				hwProfile.CacheRefs = profileVal
 			case unix.PERF_COUNT_HW_CACHE_MISSES:
-				hwProfile.CacheMisses = &profileVal.Value
+				hwProfile.CacheMisses = profileVal
 			case unix.PERF_COUNT_HW_BRANCH_INSTRUCTIONS:
-				hwProfile.BranchInstr = &profileVal.Value
+				hwProfile.BranchInstr = profileVal
 			case unix.PERF_COUNT_HW_BRANCH_MISSES:
-				hwProfile.BranchMisses = &profileVal.Value
+				hwProfile.BranchMisses = profileVal
 			case unix.PERF_COUNT_HW_BUS_CYCLES:
-				hwProfile.BusCycles = &profileVal.Value
+				hwProfile.BusCycles = profileVal
 			case unix.PERF_COUNT_HW_STALLED_CYCLES_FRONTEND:
-				hwProfile.StalledCyclesFrontend = &profileVal.Value
+				hwProfile.StalledCyclesFrontend = profileVal
 			case unix.PERF_COUNT_HW_STALLED_CYCLES_BACKEND:
-				hwProfile.StalledCyclesBackend = &profileVal.Value
+				hwProfile.StalledCyclesBackend = profileVal
 			case unix.PERF_COUNT_HW_REF_CPU_CYCLES:
-				hwProfile.RefCPUCycles = &profileVal.Value
+				hwProfile.RefCPUCycles = profileVal
 			}
 		}
 	}

@@ -3,7 +3,7 @@ package skylake
 import (
 	"testing"
 
-	"github.com/hodgesds/perf-utils"
+	"github.com/mahendrapaipuri/perf-utils"
 	"golang.org/x/sys/unix"
 )
 

@@ -187,31 +187,31 @@ func (p *softwareProfiler) Profile(swProfile *SoftwareProfile) error {
 		err2 := profiler.Profile(profileVal)
 		err = multierr.Append(err, err2)
 		if err2 == nil {
-			if swProfile.TimeEnabled == nil {
-				swProfile.TimeEnabled = &profileVal.TimeEnabled
-			}
-			if swProfile.TimeRunning == nil {
-				swProfile.TimeRunning = &profileVal.TimeRunning
-			}
+			// if swProfile.TimeEnabled == nil {
+			// 	swProfile.TimeEnabled = &profileVal.TimeEnabled
+			// }
+			// if swProfile.TimeRunning == nil {
+			// 	swProfile.TimeRunning = &profileVal.TimeRunning
+			// }
 			switch profilerType {
 			case unix.PERF_COUNT_SW_CPU_CLOCK:
-				swProfile.CPUClock = &profileVal.Value
+				swProfile.CPUClock = profileVal
 			case unix.PERF_COUNT_SW_TASK_CLOCK:
-				swProfile.TaskClock = &profileVal.Value
+				swProfile.TaskClock = profileVal
 			case unix.PERF_COUNT_SW_PAGE_FAULTS:
-				swProfile.PageFaults = &profileVal.Value
+				swProfile.PageFaults = profileVal
 			case unix.PERF_COUNT_SW_CONTEXT_SWITCHES:
-				swProfile.ContextSwitches = &profileVal.Value
+				swProfile.ContextSwitches = profileVal
 			case unix.PERF_COUNT_SW_CPU_MIGRATIONS:
-				swProfile.CPUMigrations = &profileVal.Value
+				swProfile.CPUMigrations = profileVal
 			case unix.PERF_COUNT_SW_PAGE_FAULTS_MIN:
-				swProfile.MinorPageFaults = &profileVal.Value
+				swProfile.MinorPageFaults = profileVal
 			case unix.PERF_COUNT_SW_PAGE_FAULTS_MAJ:
-				swProfile.MajorPageFaults = &profileVal.Value
+				swProfile.MajorPageFaults = profileVal
 			case unix.PERF_COUNT_SW_ALIGNMENT_FAULTS:
-				swProfile.AlignmentFaults = &profileVal.Value
+				swProfile.AlignmentFaults = profileVal
 			case unix.PERF_COUNT_SW_EMULATION_FAULTS:
-				swProfile.EmulationFaults = &profileVal.Value
+				swProfile.EmulationFaults = profileVal
 			default:
 			}
 		}
